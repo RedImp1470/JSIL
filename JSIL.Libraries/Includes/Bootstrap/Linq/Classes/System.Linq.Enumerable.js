@@ -384,16 +384,15 @@
       );
 
       $.Method({ Static: true, Public: true }, "SequenceEqual",
-        new JSIL.MethodSignature(
-          $jsilcore.TypeRef("System.Collections.Generic.IEnumerable`1",
-            ["!!0"]),
-          [
+        new JSIL.MethodSignature($.Boolean,
+        [
             $jsilcore.TypeRef("System.Collections.Generic.IEnumerable`1",
               ["!!0"]),
-            "System.Int32"
-          ],
-          ["TSource"]
-        ),
+            $jsilcore.TypeRef("System.Collections.Generic.IEnumerable`1",
+              ["!!0"])
+              
+         ],        
+         ["TSource"]),
         function (TSource, sourceOne, sourceTwo) {
 
             var enumeratorOne = JSIL.GetEnumerator(sourceOne, TSource);
@@ -416,12 +415,12 @@
                 }
                 enumeratorTwo = JSIL.GetEnumerator(sourceTwo, TSource);
 
-                if (count1 != count2) return false;
+                if (countOne != countTwo) return false;
 
                 while (moveNext.Call(enumeratorOne) && moveNext.Call(enumeratorTwo))
                 {
-                if (getCurrent.Call(enumeratorOne) !== getCurrent.Call(enumeratorTwo))
-                    return false;
+                    if (getCurrent.Call(enumeratorOne) !== getCurrent.Call(enumeratorTwo))
+                        return false;
                 }
                 return true;
 
@@ -435,17 +434,12 @@
 
       $.Method({ Static: true, Public: true }, "Take",
         new JSIL.MethodSignature(
-          $jsilcore.TypeRef("System.Collections.Generic.IEnumerable`1",
-            ["!!0"]),
-          [
-            $jsilcore.TypeRef("System.Collections.Generic.IEnumerable`1",
-              ["!!0"]),
-            "System.Int32"
-          ],
+          $jsilcore.TypeRef("System.Collections.Generic.IEnumerable`1",["!!0"]),
+          [$jsilcore.TypeRef("System.Collections.Generic.IEnumerable`1", ["!!0"]), "System.Int32"],
           ["TSource"]
         ),
         function (TSource, source, count) {
-
+            
             var enumerator = JSIL.GetEnumerator(source, TSource);         
             var moveNext = $jsilcore.System.Collections.IEnumerator.MoveNext;
             var getCurrent = $jsilcore.System.Collections.IEnumerator.get_Current;
